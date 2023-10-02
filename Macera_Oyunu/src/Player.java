@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Player {
@@ -89,4 +90,6 @@ public class Player {
         this.setMoney(gameChar.getMoney());
         this.setCharName(gameChar.getName());
     }
+
+
 }
