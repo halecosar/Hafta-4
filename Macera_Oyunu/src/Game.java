@@ -12,10 +12,12 @@ public class Game {
         System.out.println("Sayın " + player.getName() + " Adaya Hoşgeldiniz! "); // nesneden gelecek. Player oluşturuldu artık karakter sçilmeli.
         System.out.println("Lütfen bir karakter seçiniz :");
         player.selectChar();
-        while (true) {
 
-            Location location = null;
-            System.out.println("Bölgeler");
+        Location location = null;
+        while (true) {
+           player.printInfo();
+
+            System.out.println("****************Bölgeler********************");
             System.out.println("1- Güvenli Ev");
             System.out.println("2- Mağaza");
             System.out.println("Lütfen gitmek istediğiniz bölgeyi seçiniz : ");

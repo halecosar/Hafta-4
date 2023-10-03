@@ -1,0 +1,59 @@
+public class Armor {
+    private int id;
+    private String armorName;
+    private int block;
+
+    public int getId() {
+        return id;
+    }
+
+    public static Armor[] armors() {
+        Armor[] armorList = new Armor[3];
+        armorList[0] = new Armor(1, "Hafif", 1, 15);
+        armorList[1] = new Armor(2, "Orta", 3,25 );
+        armorList[2]= new Armor(3,"Ağır",5,40);
+
+        return armorList;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getArmorName() {
+        return armorName;
+    }
+
+    public void setArmorName(String armorName) {
+        this.armorName = armorName;
+    }
+
+    public int getBlock() {
+        return block;
+    }
+
+    public void setBlock(int block) {
+        this.block = block;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    private int price;
+
+    public Armor(int id, String armorName, int block, int price) {
+        this.id = id;
+        this.armorName = armorName;
+        this.block = block;
+        this.price = price;
+    }
+
+   public static Armor getArmorobjByID(int id){
+
+   }
+    }

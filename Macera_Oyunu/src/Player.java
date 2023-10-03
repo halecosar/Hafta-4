@@ -1,4 +1,4 @@
-import java.sql.SQLOutput;
+
 import java.util.Scanner;
 
 public class Player {
@@ -7,10 +7,12 @@ public class Player {
     private int money;
     String name;
     String charName;
+    private Inventory inventory;
     private Scanner scan = new Scanner(System.in);
 
     public int getDamage() {
-        return damage;
+
+        return damage + getInventory().getWeapon().getDamage();
     }
 
     public void setDamage(int damage) {
@@ -49,8 +51,17 @@ public class Player {
         this.charName = charName;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
     public Player(String name) { // oyuncunun adını alacağız dışarıdan, diğerleri zaten seçilecek oyun içinden.
         this.name = name;
+        this.inventory= new Inventory(); // player oluştuğu zaman otomatik bir inventory oluşsun. Varsayılan olarak yumruk gelecek.
     }
 
     public void selectChar() {
@@ -90,6 +101,11 @@ public class Player {
         this.setMoney(gameChar.getMoney());
         this.setCharName(gameChar.getName());
     }
+public void printInfo(){
+    System.out.println( " Silahınız : " + this.getInventory().getWeapon().getName() + " Hasarınız: " + this.getDamage() +
+            ", Sağlığınız : " + getHealth() + " , Paranız  : " + this.getMoney());
 
+
+}
 
 }
