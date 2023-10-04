@@ -3,6 +3,7 @@ private Weapon weapon;
 private Armor armor;
 
     public Armor getArmor() {
+        this.armor = new Armor(-1,"Paçavra",0,0);
         return armor;
     }
 
@@ -15,6 +16,7 @@ private Armor armor;
     }
 
     public Weapon getWeapon() {
+        Weapon weapon = new Weapon ("Yumruk",-1,0,0);
         return weapon;
     }
 

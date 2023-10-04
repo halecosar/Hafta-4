@@ -34,52 +34,77 @@ public abstract class BattleLocation extends Location {
         int obsNumber = randomObstacleNumber();
         System.out.println("Şu an buradasınız." + this.getName());
         System.out.println("Dikkatli ol burada" + obsNumber + " tane " + this.getObstacle().getName() + " yaşıyor.");
-        System.out.println("<S>aaş veya <K>aç ");
+        System.out.println("<S>avaş veya <K>aç ");
         String selectCase = scan.nextLine();
         selectCase = selectCase.toUpperCase();
-        if (selectCase.equals("S")) {
+        if (selectCase.equals("S") && combat(obsNumber)) {
+            combat(obsNumber);
+            System.out.println(this.getName() + "tüm düşmanları yendiniz");
+            return true;
 
+        }
+
+
+        if (this.getPlayer().getHealth() <= 0) {
+            System.out.println("Öldünüz");
+            return false;
         }
         return true;
     }
 
     // kaç canavarla savaşacaksam o kadar döngü yazacağız.
     public boolean combat(int obsNumber) {
-        for(int i=1; i<obsNumber; i++ ){
-          playerStats();
-          obstacleStats();
-          while(this.getPlayer().getHealth()> 0 && this.getObstacle().getHealth() >0){
-              System.out.println(" <V>ur veya <K>aç");
-              String selectCombat =scan.nextLine().toUpperCase();
-              if (selectCombat.equals("V")) {
-                  System.out.println("Siz Vurdunuz ");
-                  this.getObstacle().setHealth(this.getObstacle().getHealth()-this.getPlayer().getTotalDamage());
-                  afterHit();
-                  if (this.getObstacle().getHealth() >0){
-                      System.out.println();
-                      System.out.println("Canavar Vurdu ");
-                      int obstacleDamage = this.getObstacle().getDamage()- this.getPlayer().getInventory().getArmor().getBlock();
-                      if(obstacleDamage<0){
-                          obstacleDamage=0;
-                      }
+        this.getObstacle().setHealth(this.getObstacle().getOriginalHealth());
 
-                      this.getPlayer().setHealth(this.getPlayer().getHealth());
+        for (int i = 1; i < obsNumber; i++) {
+            playerStats();
+            obstacleStats(i);
+            while (this.getPlayer().getHealth() > 0 && this.getObstacle().getHealth() > 0) {
+                System.out.println(" <V>ur veya <K>aç");
+                String selectCombat = scan.nextLine().toUpperCase();
+                if (selectCombat.equals("V")) {
+                    System.out.println("Siz Vurdunuz ");
+                    this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
+                    afterHit();
+                    if (this.getObstacle().getHealth() > 0) {
+                        System.out.println();
+                        System.out.println("Canavar Vurdu ");
+                        int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
+                        if (obstacleDamage < 0) {
+                            obstacleDamage = 0;
+                        }
 
-
-
-                  }
-
-              }
+                        this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
+                        afterHit();
 
 
-          }
+                    } else {
+                        return false;
+                    }
+
+                    if (this.getObstacle().getHealth() < this.getPlayer().getHealth()) {
+                        System.out.println("Düşmanı Yendiniz!");
+                        System.out.println(this.getObstacle().getAward() + "para kazandınız");
+                        this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
+                        System.out.println("Güncel Paranız :" + this.getPlayer().getMoney());
+                    }
+
+                } else {
+                    return false;
+
+                }
+
+
+            }
+            return true;
         }
 
 
         return false;
     }
-    public void afterHit(){
-        System.out.println("Canınız :"+ this.getPlayer().getHealth());
+
+    public void afterHit() {
+        System.out.println("Canınız :" + this.getPlayer().getHealth());
         System.out.println(this.getObstacle().getHealth() + " canı ");
         System.out.println();
     }
@@ -89,25 +114,27 @@ public abstract class BattleLocation extends Location {
         return rnd.nextInt(3) + 1;
 
     }
-    public void playerStats(){
+
+    public void playerStats() {
         System.out.println("Oyuncu Değerleri");
         System.out.println("--------------------------");
-        System.out.println("Sağlık : " +this.getPlayer().getHealth());
+        System.out.println("Sağlık : " + this.getPlayer().getHealth());
         System.out.println("Silah :" + this.getPlayer().getInventory().getWeapon().getName());
         System.out.println("Zırh :" + this.getPlayer().getInventory().getArmor().getArmorName());
         System.out.println("Bloklama :" + this.getPlayer().getInventory().getArmor().getBlock());
 
-        System.out.println("Hasar : " +this.getPlayer().getTotalDamage());
-        System.out.println("Para : " +this.getPlayer().getMoney());
+        System.out.println("Hasar : " + this.getPlayer().getTotalDamage());
+        System.out.println("Para : " + this.getPlayer().getMoney());
 
 
     }
-    public void obstacleStats(){
-        System.out.println(this.getObstacle().getName() + " Değerleri ");
+
+    public void obstacleStats(int i) {
+        System.out.println(i + "." + this.getObstacle().getName() + " Değerleri ");
         System.out.println("---------------------------------------------");
-        System.out.println("Sağlık : " +this.getObstacle().getHealth());
-        System.out.println("Hasar : " +this.getObstacle().getDamage());
-        System.out.println("Ödülü : " +this.getObstacle().getAward());
+        System.out.println("Sağlık : " + this.getObstacle().getHealth());
+        System.out.println("Hasar : " + this.getObstacle().getDamage());
+        System.out.println("Ödülü : " + this.getObstacle().getAward());
 
     }
 

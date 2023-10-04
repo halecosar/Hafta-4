@@ -1,9 +1,8 @@
 public class Weapon {
-   private String name;
-   private int id;
-   private int damage;
-   private int price;
-
+    private String name;
+    private int id;
+    private int damage;
+    private int price;
 
 
     public String getName() {
@@ -44,15 +43,17 @@ public class Weapon {
         this.damage = damage;
         this.price = price;
     }
-    public static Weapon[] weapons(){
+
+    public static Weapon[] weapons() {
         Weapon[] weaponList = new Weapon[3];
-        weaponList [0] = new Weapon("Tabanca", 1,2,25);
-        weaponList [1]= new Weapon("Kılıç", 2,3,35);
-        weaponList [2]= new Weapon("Tüfek",3,7,45);
+        weaponList[0] = new Weapon("Tabanca", 1, 2, 25);
+        weaponList[1] = new Weapon("Kılıç", 2, 3, 35);
+        weaponList[2] = new Weapon("Tüfek", 3, 7, 45);
         return weaponList;
 
 
     }
+
     public static Weapon getWeaponObjByID(int id) {
         for (Weapon w : Weapon.weapons()) {
             if (w.getId() == id) {
@@ -61,5 +62,5 @@ public class Weapon {
         }
         return null;
     }
-    }
+}
 

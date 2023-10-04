@@ -4,6 +4,16 @@ import java.util.Scanner;
 public class Player {
     private int damage;
     private int health;
+    private int originalHealth;
+
+    public int getOriginalHealth() {
+        return originalHealth;
+    }
+
+    public void setOriginalHealth(int originalHealth) {
+        this.originalHealth = originalHealth;
+    }
+
     private int money;
     String name;
     String charName;
@@ -11,7 +21,7 @@ public class Player {
     private Scanner scan = new Scanner(System.in);
 
 
-    public int getTotalDamage(){
+    public int getTotalDamage() {
         return damage + getInventory().getWeapon().getDamage();
     }
 
@@ -29,6 +39,10 @@ public class Player {
     }
 
     public void setHealth(int health) {
+
+        if (health < 0) {
+            health = 0;
+        }
         this.health = health;
     }
 
@@ -66,7 +80,7 @@ public class Player {
 
     public Player(String name) { // oyuncunun adını alacağız dışarıdan, diğerleri zaten seçilecek oyun içinden.
         this.name = name;
-        this.inventory= new Inventory(); // player oluştuğu zaman otomatik bir inventory oluşsun. Varsayılan olarak yumruk gelecek.
+        this.inventory = new Inventory(); // player oluştuğu zaman otomatik bir inventory oluşsun. Varsayılan olarak yumruk gelecek.
     }
 
     public void selectChar() {
@@ -105,12 +119,14 @@ public class Player {
         this.setHealth(gameChar.getHealth());
         this.setMoney(gameChar.getMoney());
         this.setCharName(gameChar.getName());
+        this.setOriginalHealth(gameChar.getHealth());
     }
-public void printInfo(){
-    System.out.println( " Silahınız : " + this.getInventory().getWeapon().getName() + "Zırhınız : " + this.getInventory().getArmor().getArmorName()+ "Bloklama :" + this.getInventory().getArmor().getBlock()+ " Hasarınız: " + this.getTotalDamage() +
-            ", Sağlığınız : " + getHealth() + " , Paranız  : " + this.getMoney());
+
+    public void printInfo() {
+        System.out.println(" Silahınız : " + this.getInventory().getWeapon().getName() + "Zırhınız : " + this.getInventory().getArmor().getArmorName() + "Bloklama :" + this.getInventory().getArmor().getBlock() + " Hasarınız: " + this.getTotalDamage() +
+                ", Sağlığınız : " + getHealth() + " , Paranız  : " + this.getMoney());
 
 
-}
+    }
 
 }
