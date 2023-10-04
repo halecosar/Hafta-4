@@ -53,7 +53,14 @@ public class Armor {
         this.price = price;
     }
 
-   public static Armor getArmorobjByID(int id){
+    public static Armor getArmorObjByID(int id) {
+        for (Armor a : Armor.armors()) {
+            if (a.getId() == id) {
+                return a;
+            }
+        }
+        return null;
+    }
 
    }
-    }
+

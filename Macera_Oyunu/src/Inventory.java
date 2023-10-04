@@ -11,7 +11,7 @@ private Armor armor;
     }
 
     public Inventory(Armor armor) {
-      this.armor = new Armor(0,"Paçavra",0,0);
+      this.armor = new Armor(-1,"Paçavra",0,0);
     }
 
     public Weapon getWeapon() {
@@ -23,7 +23,7 @@ private Armor armor;
     }
 
     public Inventory() {
-        Weapon weapon = new Weapon ("Yumruk",0,0,0);
+        Weapon weapon = new Weapon ("Yumruk",-1,0,0);
 
     }
 }
