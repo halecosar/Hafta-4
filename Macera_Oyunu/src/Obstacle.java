@@ -1,6 +1,7 @@
 public class Obstacle {
     private int id;
     private int damage;
+    private int award;
 
     public int getId() {
         return id;
@@ -34,11 +35,20 @@ public class Obstacle {
         this.name = name;
     }
 
-    public Obstacle(int id,String name, int damage, int health, ) {
+    public int getAward() {
+        return award;
+    }
+
+    public void setAward(int award) {
+        this.award = award;
+    }
+
+    public Obstacle(int id, String name, int damage, int health, int award) {
         this.id = id;
         this.name = name;
         this.damage = damage;
         this.health = health;
+        this.award= award;
 
     }
 

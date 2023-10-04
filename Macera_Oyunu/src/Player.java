@@ -10,9 +10,14 @@ public class Player {
     private Inventory inventory;
     private Scanner scan = new Scanner(System.in);
 
+
+    public int getTotalDamage(){
+        return damage + getInventory().getWeapon().getDamage();
+    }
+
     public int getDamage() {
 
-        return damage + getInventory().getWeapon().getDamage();
+        return damage;
     }
 
     public void setDamage(int damage) {
@@ -102,7 +107,7 @@ public class Player {
         this.setCharName(gameChar.getName());
     }
 public void printInfo(){
-    System.out.println( " Silahınız : " + this.getInventory().getWeapon().getName() + "Zırhınız : " + this.getInventory().getArmor().getArmorName()+ "Bloklama :" + this.getInventory().getArmor().getBlock()+ " Hasarınız: " + this.getDamage() +
+    System.out.println( " Silahınız : " + this.getInventory().getWeapon().getName() + "Zırhınız : " + this.getInventory().getArmor().getArmorName()+ "Bloklama :" + this.getInventory().getArmor().getBlock()+ " Hasarınız: " + this.getTotalDamage() +
             ", Sağlığınız : " + getHealth() + " , Paranız  : " + this.getMoney());
 
 
