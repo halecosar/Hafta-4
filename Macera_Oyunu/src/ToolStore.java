@@ -64,28 +64,30 @@ public class ToolStore extends NormalLocation {
         if (selectWeapon != 0) {
             Weapon selectedWeapon = Weapon.getWeaponObjByID(selectWeapon);
             if (selectedWeapon != null) {
-                if (selectedWeapon.getPrice() > this.getPlayer().getMoney()) {
+                if (selectedWeapon.getPrice() > this.getPlayer().getMoney() || getPlayer().getMoney() <= 0) {
                     System.out.println("Yetersiz Bakiye");
                 }
                 //satın lma buada gerçekleşecek.
                 else {
                     System.out.println(selectedWeapon.getName() + "silahını satın aldınız");
+
+                    int balance = getPlayer().getMoney() - selectedWeapon.getPrice();
+                    this.getPlayer().setMoney(balance);
+                    System.out.println("Kalan Paranız : " + this.getPlayer().getMoney());
+                    System.out.println("Önceki Silahınız : " + this.getPlayer().getInventory().getWeapon().getName());
+                    getPlayer().getInventory().setWeapon(selectedWeapon);
+                    System.out.println("Yeni Silahınız : " + this.getPlayer().getInventory().getWeapon().getName());
                 }
-                int balance = getPlayer().getMoney() - selectedWeapon.getPrice();
-                this.getPlayer().setMoney(balance);
-                System.out.println("Kalan Paranız : " + this.getPlayer().getMoney());
-                System.out.println("Önceki Silahınız : " + this.getPlayer().getInventory().getWeapon().getName());
-                getPlayer().getInventory().setWeapon(selectedWeapon);
-                System.out.println("Yeni Silahınız : " + this.getPlayer().getInventory().getWeapon().getName());
+
 
             }
         }
     }
 
     public void printArmor() {
-        System.out.println("****Zırhlar****");
+        System.out.println("*****************Zırhlar**********************");
         for (Armor a : Armor.armors()) {
-            System.out.println(a.getId() + "-" + a.getArmorName() + "Para: " + a.getPrice() + "Zırh Değeri : " + a.getBlock());
+            System.out.println(a.getId() + " - " + " (" + a.getArmorName() + "Zırh) " + " Para: " + "/ " + a.getPrice() + " Zırh Blok Değeri : " + a.getBlock());
         }
         System.out.println(" 0- Çıkış Yap");
 
@@ -103,19 +105,22 @@ public class ToolStore extends NormalLocation {
         if (selectArmor != 0) {
             Armor selectedArmor = Armor.getArmorObjByID(selectArmor);
             if (selectedArmor != null) {
-                if (selectedArmor.getPrice() > this.getPlayer().getMoney()) {
-                    System.out.println("Yetersiz Bakiye");
+                if (selectedArmor.getPrice() > this.getPlayer().getMoney() || getPlayer().getMoney() <= 0) {
+                    System.out.println("Yetersiz Bakiye.. ");
                 }
                 //satın alma burada gerçekleşecek.
                 else {
                     System.out.println(selectedArmor.getArmorName() + "zırhını satın aldınız");
+
+                    int balance = getPlayer().getMoney() - selectedArmor.getPrice();
+                    this.getPlayer().setMoney(balance);
+
+                    System.out.println("Kalan Bakiye : " + this.getPlayer().getMoney());
+                    System.out.println("Önceki Zırhınız : " + this.getPlayer().getInventory().getArmor().getArmorName());
+                    getPlayer().getInventory().setArmor(selectedArmor);
+                    System.out.println("Yeni Zırhınız : " + this.getPlayer().getInventory().getArmor().getArmorName());
                 }
-                int balance = getPlayer().getMoney() - selectedArmor.getPrice();
-                this.getPlayer().setMoney(balance);
-                System.out.println("Kalan Bakiye : " + this.getPlayer().getMoney());
-                System.out.println("Önceki Zırhınız : " + this.getPlayer().getInventory().getArmor().getArmorName());
-                getPlayer().getInventory().setArmor(selectedArmor);
-                System.out.println("Yeni Zırhınız : " + this.getPlayer().getInventory().getArmor().getArmorName());
+
 
             }
         }

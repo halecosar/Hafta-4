@@ -7,27 +7,27 @@ public class Game {
 
     public void start() {
         System.out.println("Macera Oyununa Hoşgeldin ! ");
-        System.out.println("İsim giriniz :"); // oyuncudan isim aldıysak player sınıfını oluşturalım.
+        System.out.print("İsim giriniz :"); // oyuncudan isim aldıysak player sınıfını oluşturalım.
         playerName = scan.nextLine(); //kullanıcıdan isim aldıktan sonra bir player nesnesi üretelim.
         Player player = new Player(playerName); // constructor'a aldığım parametreyi girdim.
         System.out.println("Sayın " + player.getName() + " Adaya Hoşgeldiniz! "); // nesneden gelecek. Player oluşturuldu artık karakter sçilmeli.
-        System.out.println("Lütfen bir karakter seçiniz :");
+        System.out.println("Lütfen Bir Karakter Seçiniz :");
         player.selectChar();
 
         Location location = null;
         while (true) {
            player.printInfo();
 
-            System.out.println("****************Bölgeler********************");
-            System.out.println("1- Güvenli Ev, burada güvendesin, canın yenilenecek.");
-            System.out.println("2- Eşya Dükkanı, buradan silah ve zırh satın alabilirsin.");
-            System.out.println("3- Mağara, zombilerle savaşarak yemek kazanabilirsin.");
+            System.out.println("****************Bölgeler******************** ");
+            System.out.println("1- Güvenli Ev, burada güvendesin! canın yenilenecek. ");
+            System.out.println("2- Eşya Dükkanı, buradan silah ve zırh satın alabilirsin. ");
+            System.out.println("3- Mağara, zombilerle savaşarak yemek kazanabilirsin. ");
             System.out.println("4- Orman, vamirlerle savaşarak odun kazanabilirsin. ");
-            System.out.println("5- Nehir, ayılarla savaşarak su kazanabailirsin.");
-            System.out.println("6- Maden, yılanlarla savaşarak eşya ya da para kazanabilirsin");
+            System.out.println("5- Nehir, ayılarla savaşarak su kazanabailirsin. ");
+            System.out.println("6- Maden, yılanlarla savaşarak eşya ya da para kazanabilirsin. ");
 
 
-            System.out.println("0- Çıkış Yap");
+            System.out.println("0- Çıkış Yap. ");
 
             System.out.println("Lütfen gitmek istediğiniz bölgeyi seçiniz : ");
             int selectLoc = scan.nextInt();
@@ -54,7 +54,7 @@ public class Game {
                     location = new Coal(player);
                     break;
                 default:
-                    System.out.println("Lütfen Geçerli Bir Bölge Giriniz!");
+                    System.out.println("Lütfen Geçerli Bir Bölge Giriniz! ");
             }
 
             if(location == null){
@@ -65,7 +65,6 @@ public class Game {
             if(!location.onLocation()){
                 System.out.println("Game Over!");
                 break;
-
             }
         }
 
