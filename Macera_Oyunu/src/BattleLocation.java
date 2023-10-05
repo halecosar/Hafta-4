@@ -4,6 +4,7 @@ public abstract class BattleLocation extends Location {
     Obstacle obstacle;
     private String award;
     private int maxObstacle;
+    private String name;
 
 
     public Obstacle getObstacle() {
@@ -27,13 +28,14 @@ public abstract class BattleLocation extends Location {
         this.obstacle = obstacle;
         this.award = award;
         this.maxObstacle = maxObstacle;
+        this.name = name;
     }
 
     @Override
     public boolean onLocation() {
         int obsNumber = randomObstacleNumber();
-        System.out.println("Şu an buradasınız." + this.getName());
-        System.out.println("Dikkatli ol burada" + obsNumber + " tane " + this.getObstacle().getName() + " yaşıyor.");
+        System.out.println("Şu an buradasınız." + this.name);
+        System.out.println("Dikkatli ol burada" + this.getObstacle().getName() == "Snake" ? randomObstacleNumberForSnake() : obsNumber + " tane " + this.getObstacle().getName() + " yaşıyor.");
         System.out.println("<S>avaş veya <K>aç ");
         String selectCase = scan.nextLine();
         selectCase = selectCase.toUpperCase();
@@ -67,60 +69,64 @@ public abstract class BattleLocation extends Location {
                 if (selectCombat.equals("V")) {
 
                     Random random = new Random();
-                   int caseRand= random.nextInt(1,2);
+                    int caseRand = random.nextInt(1, 2);
 
-                   if (caseRand==1){
-                       System.out.println("Siz Vurdunuz ");
-                       this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
-                       afterHit();
+                    if (caseRand == 1) {
+                        System.out.println("Siz Vurdunuz ");
+                        this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
+                        afterHit();
 
-                       if (this.getObstacle().getHealth() > 0) {
-                           System.out.println();
-                           System.out.println("Canavar Vurdu ");
-                           int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
-                           if (obstacleDamage < 0) {
-                               obstacleDamage = 0;
-                           }
+                        if (this.getObstacle().getHealth() > 0) {
+                            System.out.println();
+                            System.out.println("Canavar Vurdu ");
+                            int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
+                            if (obstacleDamage < 0) {
+                                obstacleDamage = 0;
+                            }
 
-                           this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
-                           afterHit();
-
-
-                       } else {
-                           return false;
-                       }
+                            this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
+                            afterHit();
 
 
-                   }
-                   else {
-
-                       System.out.println("Canavar Vurdu ");
-                       int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
-                       if (obstacleDamage < 0) {
-                           obstacleDamage = 0;
-                       }
-
-                       this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
-                       afterHit();
-
-                       if (this.getPlayer().getHealth() > 0) {
-                           System.out.println();
-
-                           System.out.println("Siz Vurdunuz ");
-                           this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
-                           afterHit();
-                       }
-
-                   }
+                        } else {
+                            return false;
+                        }
 
 
+                    } else {
+
+                        System.out.println("Canavar Vurdu ");
+                        int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
+                        if (obstacleDamage < 0) {
+                            obstacleDamage = 0;
+                        }
+
+                        this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacleDamage);
+                        afterHit();
+
+                        if (this.getPlayer().getHealth() > 0) {
+                            System.out.println();
+
+                            System.out.println("Siz Vurdunuz ");
+                            this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
+                            afterHit();
+                        }
+
+                    }
 
 
                     if (this.getObstacle().getHealth() < this.getPlayer().getHealth()) {
                         System.out.println("Düşmanı Yendiniz!");
-                        System.out.println(this.getObstacle().getAward() + "para kazandınız");
-                        this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
-                        System.out.println("Güncel Paranız :" + this.getPlayer().getMoney());
+                        if (getObstacle().getName() == "Yılan") {
+
+                            earnSomething();
+                        } else {
+                            System.out.println(this.getObstacle().getAward() + "para kazandınız");
+                            this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
+                            System.out.println("Güncel Paranız :" + this.getPlayer().getMoney());
+
+                        }
+
                     }
 
                 } else {
@@ -149,6 +155,12 @@ public abstract class BattleLocation extends Location {
 
     }
 
+    public int randomObstacleNumberForSnake() {
+        Random rnd = new Random();
+        return rnd.nextInt(0, 5);
+
+    }
+
     public void playerStats() {
         System.out.println("Oyuncu Değerleri");
         System.out.println("--------------------------");
@@ -169,6 +181,60 @@ public abstract class BattleLocation extends Location {
         System.out.println("Sağlık : " + this.getObstacle().getHealth());
         System.out.println("Hasar : " + this.getObstacle().getDamage());
         System.out.println("Ödülü : " + this.getObstacle().getAward());
+
+    }
+
+    public void earnSomething() {
+        Random random = new Random();
+        int randomEarn = random.nextInt(1, 100);
+        if (randomEarn <= 15) {
+            Random random1 = new Random();
+            int randomEarn1 = random.nextInt(1, 100);
+            if (randomEarn1 <= 20) {
+                System.out.println("Tüfek Kazandınız!");
+                getPlayer().getInventory().setWeapon(Weapon.getWeaponObjByID(3));
+            } else if (randomEarn1 <= 50 && randomEarn1 > 20) {
+                System.out.println("Kılıç Kazandınız!");
+                getPlayer().getInventory().setWeapon(Weapon.getWeaponObjByID(2));
+
+            } else {
+                System.out.println("Tabanca Kazandınız");
+                getPlayer().getInventory().setWeapon(Weapon.getWeaponObjByID(1));
+            }
+
+
+        } else if (randomEarn > 15 && randomEarn < 30) {
+            Random random2 = new Random();
+            int randomEarn2 = random.nextInt(1, 100);
+            if (randomEarn2 <= 20) {
+                System.out.println(" Ağır Zırh Kazandınız");
+                getPlayer().getInventory().setArmor(Armor.getArmorObjByID(3));
+            } else if (randomEarn2 > 20 && randomEarn2 <= 50) {
+                System.out.println("Orta Zırh Kazandınız");
+                getPlayer().getInventory().setArmor(Armor.getArmorObjByID(2));
+
+            } else {
+                System.out.println(" Hafif Zırh Kazandınız");
+                getPlayer().getInventory().setArmor(Armor.getArmorObjByID(1));
+
+            }
+        } else if (randomEarn > 30 && randomEarn <= 55) {
+            Random random2 = new Random();
+            int randomEarn2 = random.nextInt(1, 100);
+            if (randomEarn2 <= 20) {
+                System.out.println(" 10 Para  Kazandınız");
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + 10);
+            } else if (randomEarn2 > 20 && randomEarn2 <= 50) {
+                System.out.println("5 Para Kazandınız");
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + 5);
+            } else {
+                System.out.println(" 1 Para Kazandınız");
+                this.getPlayer().setMoney(this.getPlayer().getMoney() + 1);
+            }
+            System.out.println("Güncel Paranız :" + this.getPlayer().getMoney());
+        } else
+            System.out.println("Hiçbir şey kazanamadınız.");
+
 
     }
 

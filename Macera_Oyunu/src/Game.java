@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Game {
@@ -23,6 +24,7 @@ public class Game {
             System.out.println("3- Mağara, zombilerle savaşarak yemek kazanabilirsin.");
             System.out.println("4- Orman, vamirlerle savaşarak odun kazanabilirsin. ");
             System.out.println("5- Nehir, ayılarla savaşarak su kazanabailirsin.");
+            System.out.println("6- Maden, yılanlarla savaşarak eşya ya da para kazanabilirsin");
 
 
             System.out.println("0- Çıkış Yap");
@@ -47,6 +49,9 @@ public class Game {
                     break;
                 case 5:
                     location  = new River(player);
+                    break;
+                case 6:
+                    location = new Coal(player);
                     break;
                 default:
                     System.out.println("Lütfen Geçerli Bir Bölge Giriniz!");
