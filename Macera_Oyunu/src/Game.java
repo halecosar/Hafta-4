@@ -35,7 +35,7 @@ public class Game {
 
             System.out.println("Lütfen gitmek istediğiniz bölgeyi seçiniz : ");
             int selectLoc = scan.nextInt();
-
+            // Belirli bölgede ödül kazanıldıktan sonra bir daha o bölgeye giriş engellendi.
             if (player.getInventory().getAward()[0] == 1 && selectLoc == 3) {
                 System.out.println("=================================================================");
                 System.out.println("Mağaradaki tüm canavarları temizlediniz, sıra diğer bölümlerde!");
@@ -44,7 +44,7 @@ public class Game {
                 selectLoc = 0;
                 gameLoop(player);
             }
-
+            // Belirli bölgede ödül kazanıldıktan sonra bir daha o bölgeye giriş engellendi.
             if (player.getInventory().getAward()[1] == 2 && selectLoc == 4) {
                 System.out.println("=================================================================");
                 System.out.println("Ormandaki tüm canavarları temizlediniz, sıra diğer bölümlerde!");
@@ -53,7 +53,7 @@ public class Game {
                 selectLoc = 0;
                 gameLoop(player);
             }
-
+            // Belirli bölgede ödül kazanıldıktan sonra bir daha o bölgeye giriş engellendi.
             if (player.getInventory().getAward()[2] == 3 && selectLoc == 5) {
                 System.out.println("=================================================================");
                 System.out.println("Nehirdeki tüm canavarları temizlediniz, sıra diğer bölümlerde!");
@@ -63,6 +63,7 @@ public class Game {
                 gameLoop(player);
             }
 
+            // istenilen 3 bölgedeki tüm ödüller kazanıldıktan sonra güvenli eve dönülünce oyunu bitirdi.
             int[] asd = player.getInventory().getAward();
             if (asd[0] == 1 && asd[1] == 2 && asd[2] == 3 && selectLoc == 1) {
                 System.out.println(" Tebrikler!!! Tüm canavarları öldürüp ödülleri topladığınız için oyunu kazandınız.");

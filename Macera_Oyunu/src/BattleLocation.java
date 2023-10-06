@@ -40,9 +40,9 @@ public abstract class BattleLocation extends Location {
         String selectCase = scan.nextLine();
         selectCase = selectCase.toUpperCase();
         if (selectCase.equals("S") && combat(obsNumber)) {
-            System.out.println(this.name +" Bölgesindeki tüm düşmanları yendiniz! ");
+            System.out.println(this.name + " Bölgesindeki tüm düşmanları yendiniz! ");
 
-
+        // bölgeye göre bölgedeki tüm canavarlar öldürüldükten sonra ödüller verildi.
             if (this.name == "Mağara") {
                 this.getPlayer().getInventory().SetAward(1);
                 System.out.println(" Tüm düşmanları yendiniz!, yemek kazandınız. ");
@@ -83,6 +83,7 @@ public abstract class BattleLocation extends Location {
 
                 if (selectCombat.equals("V")) {
 
+                    //savaşta rasteele lk kiin başlayacağı belirlendi.
                     Random random = new Random();
                     int caseRand = random.nextInt(1, 2);
 
@@ -147,7 +148,7 @@ public abstract class BattleLocation extends Location {
 
                 }
             }
-            i=i+1;
+            i = i + 1;
         }
 
 
@@ -195,6 +196,7 @@ public abstract class BattleLocation extends Location {
 
     }
 
+        // Yılanı öldürünce belirli olasılıklara göre ödül kazanma algoritması yazıldı.
     public void earnSomething() {
         Random random = new Random();
         int randomEarn = random.nextInt(1, 100);
