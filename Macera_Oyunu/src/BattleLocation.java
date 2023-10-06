@@ -34,13 +34,14 @@ public abstract class BattleLocation extends Location {
     @Override
     public boolean onLocation() {
         int obsNumber = randomObstacleNumber();
-        System.out.println("Şu an buradasınız. " + this.name);
+        System.out.println("Şu an buradasınız ===> " + this.name);
         System.out.println("Dikkatli ol burada " + this.getObstacle().getName() == " Snake " ? randomObstacleNumberForSnake() : obsNumber + " tane " + this.getObstacle().getName() + " yaşıyor.");
-        System.out.println(" <S>avaş veya <K>aç ");
+        System.out.println("<S>avaş veya <K>aç ");
         String selectCase = scan.nextLine();
         selectCase = selectCase.toUpperCase();
         if (selectCase.equals("S") && combat(obsNumber)) {
-            System.out.println(" Tüm düşmanları yendiniz! ");
+            System.out.println(this.name +" Bölgesindeki tüm düşmanları yendiniz! ");
+
 
             if (this.name == "Mağara") {
                 this.getPlayer().getInventory().SetAward(1);
@@ -77,7 +78,7 @@ public abstract class BattleLocation extends Location {
             obstacleStats(i);
 
             while (this.getPlayer().getHealth() > 0 && this.getObstacle().getHealth() > 0) {
-                System.out.println(" <V>ur veya <K>aç ");
+                System.out.println("<V>ur veya <K>aç ");
                 String selectCombat = scan.nextLine().toUpperCase();
 
                 if (selectCombat.equals("V")) {
@@ -86,13 +87,13 @@ public abstract class BattleLocation extends Location {
                     int caseRand = random.nextInt(1, 2);
 
                     if (caseRand == 1) {
-                        System.out.println(" Siz Vurdunuz! ");
+                        System.out.println("Siz Vurdunuz! ");
                         this.getObstacle().setHealth(this.getObstacle().getHealth() - this.getPlayer().getTotalDamage());
                         afterHit();
 
                         if (this.getObstacle().getHealth() > 0) {
                             System.out.println();
-                            System.out.println(" Canavar Vurdu! ");
+                            System.out.println("Canavar Vurdu! ");
                             int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
                             if (obstacleDamage < 0) {
                                 obstacleDamage = 0;
@@ -107,7 +108,7 @@ public abstract class BattleLocation extends Location {
 
                     } else {
 
-                        System.out.println(" Canavar Vurdu! ");
+                        System.out.println("Canavar Vurdu! ");
                         int obstacleDamage = this.getObstacle().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
                         if (obstacleDamage < 0) {
                             obstacleDamage = 0;
@@ -128,14 +129,14 @@ public abstract class BattleLocation extends Location {
 
 
                     if (this.getObstacle().getHealth() <= 0) {
-                        System.out.println(" Düşmanı Yendiniz! ");
-                        if (getObstacle().getName() == " Yılan ") {
+                        System.out.println("Düşmanı Yendiniz! ");
+                        if (getObstacle().getName() == "Yılan") {
 
                             earnSomething();
                         } else {
                             System.out.println(this.getObstacle().getAward() + " Para Kazandınız ! ");
                             this.getPlayer().setMoney(this.getPlayer().getMoney() + this.getObstacle().getAward());
-                            System.out.println(" Güncel Paranız :" + this.getPlayer().getMoney());
+                            System.out.println("Güncel Paranız :" + this.getPlayer().getMoney());
 
                         }
 
@@ -154,8 +155,8 @@ public abstract class BattleLocation extends Location {
     }
 
     public void afterHit() {
-        System.out.println(" Canınız :" + this.getPlayer().getHealth());
-        System.out.println("  Canavarın canı " + this.getObstacle().getHealth());
+        System.out.println("Canınız :" + this.getPlayer().getHealth());
+        System.out.println("Canavarın canı " + this.getObstacle().getHealth());
         System.out.println();
     }
 
@@ -217,14 +218,14 @@ public abstract class BattleLocation extends Location {
             Random random2 = new Random();
             int randomEarn2 = random.nextInt(1, 100);
             if (randomEarn2 <= 20) {
-                System.out.println(" Ağır Zırh Kazandınız! ");
+                System.out.println("Ağır Zırh Kazandınız! ");
                 getPlayer().getInventory().setArmor(Armor.getArmorObjByID(3));
             } else if (randomEarn2 > 20 && randomEarn2 <= 50) {
                 System.out.println("Orta Zırh Kazandınız! ");
                 getPlayer().getInventory().setArmor(Armor.getArmorObjByID(2));
 
             } else {
-                System.out.println(" Hafif Zırh Kazandınız! ");
+                System.out.println("Hafif Zırh Kazandınız! ");
                 getPlayer().getInventory().setArmor(Armor.getArmorObjByID(1));
 
             }
@@ -232,13 +233,13 @@ public abstract class BattleLocation extends Location {
             Random random2 = new Random();
             int randomEarn2 = random.nextInt(1, 100);
             if (randomEarn2 <= 20) {
-                System.out.println(" 10 Para Kazandınız! ");
+                System.out.println("10 Para Kazandınız! ");
                 this.getPlayer().setMoney(this.getPlayer().getMoney() + 10);
             } else if (randomEarn2 > 20 && randomEarn2 <= 50) {
                 System.out.println("5 Para Kazandınız! ");
                 this.getPlayer().setMoney(this.getPlayer().getMoney() + 5);
             } else {
-                System.out.println(" 1 Para Kazandınız! ");
+                System.out.println("1 Para Kazandınız! ");
                 this.getPlayer().setMoney(this.getPlayer().getMoney() + 1);
             }
             System.out.println("Güncel Paranız :" + this.getPlayer().getMoney());

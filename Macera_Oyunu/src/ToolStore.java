@@ -23,15 +23,15 @@ public class ToolStore extends NormalLocation {
                 selectCase = scan.nextInt();
             }
             switch (selectCase) {
-                case 1:
+                case 1 :
                     printWeapon();
                     buyWeapon();
                     break;
-                case 2:
+                case 2 :
                     printArmor();
                     buyArmor();
                     break;
-                case 3:
+                case 3 :
                     System.out.println("Bir daha bekleriz!");
                     showMenu = false;
                     break;
@@ -44,11 +44,12 @@ public class ToolStore extends NormalLocation {
     }
 
     public void printWeapon() {
+        System.out.println();
         System.out.println("----------Silahlar-----------");
         for (Weapon w : Weapon.weapons()) {
-            System.out.println(w.getId() + w.getName() + "Para: " + w.getPrice() + "Hasar : " + w.getDamage());
+            System.out.println(w.getId() + w.getName() + "; Para: " + w.getPrice() + "; Hasar : " + w.getDamage());
         }
-        System.out.println(" 0- Çıkış Yap");
+        System.out.println("0- Çıkış Yap");
 
 
     }
@@ -67,9 +68,11 @@ public class ToolStore extends NormalLocation {
                 if (selectedWeapon.getPrice() > this.getPlayer().getMoney() || getPlayer().getMoney() <= 0) {
                     System.out.println("Yetersiz Bakiye");
                 }
-                //satın lma buada gerçekleşecek.
+                //satın alma burada gerçekleşecek.
                 else {
+                    System.out.println();
                     System.out.println(selectedWeapon.getName() + "silahını satın aldınız");
+                    System.out.println();
 
                     int balance = getPlayer().getMoney() - selectedWeapon.getPrice();
                     this.getPlayer().setMoney(balance);
@@ -78,6 +81,7 @@ public class ToolStore extends NormalLocation {
                     getPlayer().getInventory().setWeapon(selectedWeapon);
                     System.out.println("Yeni Silahınız : " + this.getPlayer().getInventory().getWeapon().getName());
                 }
+                System.out.println();
 
 
             }
@@ -85,9 +89,9 @@ public class ToolStore extends NormalLocation {
     }
 
     public void printArmor() {
-        System.out.println("*****************Zırhlar**********************");
+        System.out.println("------------------Zırhlar-----------------------------------");
         for (Armor a : Armor.armors()) {
-            System.out.println(a.getId() + " - " + " (" + a.getArmorName() + "Zırh) " + " Para: " + "/ " + a.getPrice() + " Zırh Blok Değeri : " + a.getBlock());
+            System.out.println(a.getId() + " - " +   a.getArmorName() + " ==> "  + "Para: " +  + a.getPrice() + ","+ " Zırhın Blok Değeri : " + a.getBlock());
         }
         System.out.println(" 0- Çıkış Yap");
 

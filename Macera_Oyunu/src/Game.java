@@ -7,18 +7,21 @@ public class Game {
 
     public void start() {
         System.out.println("Macera Oyununa Hoşgeldin ! ");
-        System.out.print("İsim giriniz :"); // oyuncudan isim aldıysak player sınıfını oluşturalım.
+        System.out.print("İsim Giriniz :"); // oyuncudan isim aldıysak player sınıfını oluşturalım.
         playerName = scan.nextLine(); //kullanıcıdan isim aldıktan sonra bir player nesnesi üretelim.
         Player player = new Player(playerName); // constructor'a aldığım parametreyi girdim.
         System.out.println("Sayın " + player.getName() + " Adaya Hoşgeldiniz! "); // nesneden gelecek. Player oluşturuldu artık karakter sçilmeli.
         System.out.println("Lütfen Bir Karakter Seçiniz :");
         player.selectChar();
 
-        Location location = null;
-        while (true) {
-           player.printInfo();
+        gameLoop(player);
+    }
 
-            System.out.println("****************Bölgeler******************** ");
+    public void gameLoop(Player player) {
+        Location location = null;
+        System.out.println();
+        while (true) {
+            System.out.println("=====================Bölgeler========================");
             System.out.println("1- Güvenli Ev, burada güvendesin! canın yenilenecek. ");
             System.out.println("2- Eşya Dükkanı, buradan silah ve zırh satın alabilirsin. ");
             System.out.println("3- Mağara, zombilerle savaşarak yemek kazanabilirsin. ");
@@ -28,9 +31,44 @@ public class Game {
 
 
             System.out.println("0- Çıkış Yap. ");
+            System.out.println();
 
             System.out.println("Lütfen gitmek istediğiniz bölgeyi seçiniz : ");
             int selectLoc = scan.nextInt();
+
+            if (player.getInventory().getAward()[0] == 1 && selectLoc == 3) {
+                System.out.println("=================================================================");
+                System.out.println("Mağaradaki tüm canavarları temizlediniz, sıra diğer bölümlerde!");
+                System.out.println("=================================================================");
+                System.out.println();
+                selectLoc = 0;
+                gameLoop(player);
+            }
+
+            if (player.getInventory().getAward()[1] == 2 && selectLoc == 4) {
+                System.out.println("=================================================================");
+                System.out.println("Ormandaki tüm canavarları temizlediniz, sıra diğer bölümlerde!");
+                System.out.println("=================================================================");
+                System.out.println();
+                selectLoc = 0;
+                gameLoop(player);
+            }
+
+            if (player.getInventory().getAward()[2] == 3 && selectLoc == 5) {
+                System.out.println("=================================================================");
+                System.out.println("Nehirdeki tüm canavarları temizlediniz, sıra diğer bölümlerde!");
+                System.out.println("=================================================================");
+                System.out.println();
+                selectLoc = 0;
+                gameLoop(player);
+            }
+
+            int[] asd = player.getInventory().getAward();
+            if (asd[0] == 1 && asd[1] == 2 && asd[2] == 3 && selectLoc == 1) {
+                System.out.println(" Tebrikler!!! Tüm canavarları öldürüp ödülleri topladığınız için oyunu kazandınız.");
+                break;
+            }
+
             switch (selectLoc) {
                 case 0:
                     location = null;
@@ -48,7 +86,7 @@ public class Game {
                     location = new Forest(player);
                     break;
                 case 5:
-                    location  = new River(player);
+                    location = new River(player);
                     break;
                 case 6:
                     location = new Coal(player);
@@ -57,19 +95,15 @@ public class Game {
                     System.out.println("Lütfen Geçerli Bir Bölge Giriniz! ");
             }
 
-            if(location == null){
+            if (location == null) {
                 System.out.println("Oyun Bitti Görüşmek Üzere! ");
                 break;
 
             }
-            if(!location.onLocation()){
+            if (!location.onLocation()) {
                 System.out.println("Game Over!");
                 break;
             }
         }
-
-
-
-
     }
 }

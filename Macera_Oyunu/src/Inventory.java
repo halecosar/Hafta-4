@@ -4,7 +4,6 @@ public class Inventory {
     private int[] awards = new int[3];
 
     public Armor getArmor() {
-        this.armor = new Armor(-1, "Paçavra", 0, 0);
         return armor;
     }
 
@@ -12,12 +11,7 @@ public class Inventory {
         this.armor = armor;
     }
 
-    public Inventory(Armor armor) {
-        this.armor = new Armor(-1, "Paçavra ", 0, 0);
-    }
-
     public Weapon getWeapon() {
-        Weapon weapon = new Weapon("Yumruk ", -1, 0, 0);
         return weapon;
     }
 
@@ -26,8 +20,8 @@ public class Inventory {
     }
 
     public Inventory() {
-        Weapon weapon = new Weapon("Yumruk ", -1, 0, 0);
-
+         this.weapon = new Weapon("Yumruk ", -1, 0, 0);
+         this.armor = new Armor(-1, "Paçavra ", 0, 0);
     }
 
     public void SetAward(int id) {

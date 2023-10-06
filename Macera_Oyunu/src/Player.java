@@ -7,7 +7,7 @@ public class Player {
     private int damage;
     private int health;
     private int originalHealth;
-    private int [] arrayAward = new int [3];
+    private int[] arrayAward = new int[3];
 
     public int getOriginalHealth() {
         return originalHealth;
@@ -50,14 +50,14 @@ public class Player {
     }
 
     public int getMoney() {
-        if(money<0){
-            money=0;
+        if (money < 0) {
+            money = 0;
         }
         return money;
     }
 
     public void setMoney(int money) {
-        this.money=money;
+        this.money = money;
     }
 
     public String getName() {
@@ -80,14 +80,6 @@ public class Player {
         return inventory;
     }
 
-    public int [] setAward(){
-        return null;
-    }
-
-    public int [] getAward(){
-        return null;
-    }
-
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
@@ -98,17 +90,19 @@ public class Player {
     }
 
     public void selectChar() {
+        System.out.println();
         System.out.println("Karakterler :");
         System.out.println("-----------------------------------------------------------------------");
         GameChar[] charList = {new Samurai(), new Archer(), new Knight()}; // new demesem ne olurdu?
         for (GameChar gameChar : charList) {
-            System.out.println("ID : " + gameChar.getId());
-            System.out.println("Karakter : " + gameChar.getName());
-            System.out.println("Hasar : " + gameChar.getDamage());
-            System.out.println("Sağlık : " + gameChar.getHealth());
-            System.out.println("Para : " + gameChar.getMoney());
+            System.out.println("ID : " + gameChar.getId() + "\n" + " - Karakter : " + gameChar.getName() + "\n" +
+                            " - Hasar : " + gameChar.getDamage() + "\n" + " - Sağlık : " + gameChar.getHealth() + "\n" +
+                             " - Para : " + gameChar.getMoney());
+
+
         }
-        System.out.println("**************************************");
+        System.out.println("===========================================");
+        System.out.println();
         System.out.println("Lütfen bir karakter giriniz : ");
         int selectChar = scan.nextInt();
         switch (selectChar) {
@@ -126,7 +120,7 @@ public class Player {
         }
 
         System.out.println("Karakter : " + this.getCharName() + " , Hasar : " + this.getDamage() +
-                ", Sağlık : " + getHealth() + "Para : " + this.getMoney());
+                " , Sağlık : " + getHealth() + " , Para : " + this.getMoney());
 
     }
 
@@ -136,12 +130,11 @@ public class Player {
         this.setMoney(gameChar.getMoney());
         this.setCharName(gameChar.getName());
         this.setOriginalHealth(gameChar.getHealth());
-        this.setAward();
     }
 
     public void printInfo() {
-        System.out.println(" Silahınız : " + this.getInventory().getWeapon().getName() + " , Zırhınız : " + this.getInventory().getArmor().getArmorName() + "Bloklama :" + this.getInventory().getArmor().getBlock() + " Hasarınız: " + this.getTotalDamage() +
-                ", Sağlığınız : " + getHealth() + " , Paranız  : " + this.getMoney());
+        System.out.println("Silahınız : " + this.getInventory().getWeapon().getName() + " , Zırhınız : " + this.getInventory().getArmor().getArmorName() + " , Bloklama :" + this.getInventory().getArmor().getBlock() + " , Hasarınız: " + this.getTotalDamage() +
+                " , Sağlığınız : " + getHealth() + " , Paranız  : " + this.getMoney());
 
 
     }
